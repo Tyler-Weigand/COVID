@@ -2,7 +2,10 @@ import java.io.*;
 import java.util.Scanner;
 
 public class CoronaSolver {
-	public String solve(String inputFileName) throws IOException{
+	public static void main (String [] args) throws IOException{
+		solve("stouttest.txt");
+	}
+	public static String solve(String inputFileName) throws IOException{
 		File text = new File(inputFileName);
 		Scanner s = new Scanner(text);
 		
@@ -33,10 +36,10 @@ public class CoronaSolver {
 		}
 		if(opt[0][days-1] < opt[1][days-1]) {
 			System.out.println(opt[0][days-1]);
-			return (opt[0][days-1]);
+			return Integer.toString((opt[0][days-1]));
 		} else {
 			System.out.println(opt[1][days-1]);
-			return (opt[1][days-1]);
+			return Integer.toString((opt[1][days-1]));
 		}
 		
 	}
