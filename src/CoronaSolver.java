@@ -1,11 +1,20 @@
-import java.util.*;
+import java.io.*;
+import java.util.Scanner;
 
 public class CoronaSolver {
-	public static void main(String [] args) {
-		int days;
-		int flight;
-		int[] LA;
-		int[] NYC;
+	public String solve(String inputFileName) throws IOException{
+		File text = new File(inputFileName);
+		Scanner s = new Scanner(text);
+		
+		int days = s.nextInt();
+		int flight = s.nextInt();
+		int[] LA = new int[days];
+		int[] NYC = new int[days];
+		
+		for(int i = 0; i < days; i++) {
+			LA[i] = s.nextInt();
+			NYC[i] = s.nextInt();
+		}
 
 		int[][] opt = new int[2][days];
 		opt[0][0] = LA[0];
@@ -29,5 +38,6 @@ public class CoronaSolver {
 			System.out.println(opt[1][days-1]);
 			return (opt[1][days-1]);
 		}
+		
 	}
 }
