@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class CoronaSolver {
 	public static void main (String [] args) throws IOException{
-		solve("stouttest.txt");
+		System.out.println(solve("bigtest.txt"));
 	}
 	public static String solve(String inputFileName) throws IOException{
 		File text = new File(inputFileName);
@@ -13,6 +13,8 @@ public class CoronaSolver {
 		int flight = s.nextInt();
 		int[] LA = new int[days];
 		int[] NYC = new int[days];
+		String laPath = "L";
+		String nyPath = "N";
 		
 		for(int i = 0; i < days; i++) {
 			LA[i] = s.nextInt();
@@ -23,23 +25,28 @@ public class CoronaSolver {
 		opt[0][0] = LA[0];
 		opt[1][0] = NYC[0];
 		for (int i = 1; i<days; i++) {
-			if ((opt[1][i-1] + NYC[i] + flight) < (opt[0][i-1] + LA[i])) {
-				opt[0][i] = opt[1][i-1] + NYC[i] + flight;
+			String temp = laPath;
+			if ((opt[1][i-1] + flight) < (opt[0][i-1])) {
+				opt[0][i] = opt[1][i-1] + LA[i] + flight;
+				laPath = nyPath + "L";
 			} else {
 				opt[0][i] = opt[0][i-1] + LA[i];
+				laPath += "L";
 			}
-			if ((opt[0][i-1] + LA[i] + flight) < (opt[1][i-1] + NYC[i])) {
-				opt[1][i] = opt[0][i-1] + LA[i] + flight;
+			if ((opt[0][i-1] + flight) < (opt[1][i-1])) {
+				opt[1][i] = opt[0][i-1] + NYC[i] + flight;
+				nyPath = temp + "N";
 			} else {
 				opt[1][i] = opt[1][i-1] + NYC[i];
+				nyPath += "N";
 			}
 		}
+		
+		
 		if(opt[0][days-1] < opt[1][days-1]) {
-			System.out.println(opt[0][days-1]);
-			return Integer.toString((opt[0][days-1]));
+			return Integer.toString((opt[0][days-1])) + "\n" + laPath;
 		} else {
-			System.out.println(opt[1][days-1]);
-			return Integer.toString((opt[1][days-1]));
+			return Integer.toString((opt[1][days-1])) + "\n" + nyPath;
 		}
 		
 	}
